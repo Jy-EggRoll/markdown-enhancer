@@ -1,22 +1,14 @@
 {
-    "name": "eggroll-markdown-enhancer",
-    "displayName": "EggRoll Markdown Enhancer",
-    "description": "为 VS Code Markdown 预览中的代码块添加一键复制按钮 | Add copy buttons to code blocks in Markdown preview",
-    "version": "0.0.1",
-    "publisher": "Jy-EggRoll",
+    "activationEvents": [],
     "author": {
         "name": "EggRoll"
     },
-    "license": "SEE LICENSE IN LICENSE",
-    "engines": {
-        "vscode": "^1.93.0"
+    "bugs": {
+        "url": "https://github.com/Jy-EggRoll/markdown-enhancer/issues"
     },
     "categories": [
         "Other"
     ],
-    "main": "./dist/extension.js",
-    "icon": "icon.png",
-    "activationEvents": [],
     "contributes": {
         "markdown.previewScripts": [
             "./dist/preview.js"
@@ -30,27 +22,28 @@
             "editor/title": [
                 {
                     "command": "markdown.showPreview",
-                    "when": "editorLangId == markdown",
                     "group": "navigation",
-                    "icon": "$(search-sparkle)"
+                    "icon": "$(search-sparkle)",
+                    "when": "editorLangId == markdown"
                 }
             ]
         }
     },
-    "scripts": {
-        "check-types": "pnpm tsc --noEmit",
-        "compile": "pnpm run check-types && node esbuild.js",
-        "package": "pnpm run check-types && node esbuild.js --production",
-        "vscode:prepublish": "pnpm run package"
+    "description": "为 VS Code Markdown 预览中的代码块添加一键复制按钮 | Add copy buttons to code blocks in Markdown preview",
+    "devDependencies": {
+        "@types/node": "20.x",
+        "@types/vscode": "^1.93.0",
+        "@vscode/codicons": "^0.0.46-24",
+        "@vscode/vsce": "^3.3.2",
+        "esbuild": "^0.25.9",
+        "typescript": "^5.8.3"
     },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/Jy-EggRoll/markdown-enhancer.git"
+    "displayName": "EggRoll Markdown Enhancer",
+    "engines": {
+        "vscode": "^1.93.0"
     },
     "homepage": "https://github.com/Jy-EggRoll/markdown-enhancer#readme",
-    "bugs": {
-        "url": "https://github.com/Jy-EggRoll/markdown-enhancer/issues"
-    },
+    "icon": "icon.png",
     "keywords": [
         "markdown",
         "preview",
@@ -59,12 +52,19 @@
         "复制",
         "代码块"
     ],
-    "devDependencies": {
-        "@types/node": "20.x",
-        "@types/vscode": "^1.93.0",
-        "@vscode/codicons": "^0.0.46-24",
-        "@vscode/vsce": "^3.3.2",
-        "esbuild": "^0.25.9",
-        "typescript": "^5.8.3"
-    }
+    "license": "SEE LICENSE IN LICENSE",
+    "main": "./dist/extension.js",
+    "name": "eggroll-markdown-enhancer",
+    "publisher": "Jy-EggRoll",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Jy-EggRoll/markdown-enhancer.git"
+    },
+    "scripts": {
+        "check-types": "pnpm tsc --noEmit",
+        "compile": "pnpm run check-types && node esbuild.js",
+        "package": "pnpm run check-types && node esbuild.js --production",
+        "vscode:prepublish": "pnpm run package"
+    },
+    "version": "0.0.3"
 }
