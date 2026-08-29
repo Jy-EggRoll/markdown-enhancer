@@ -1,6 +1,6 @@
 {
     "name": "eggroll-markdown-enhancer",
-    "displayName": "Markdown Enhancer",
+    "displayName": "EggRoll Markdown Enhancer",
     "description": "为 VS Code Markdown 预览中的代码块添加一键复制按钮 | Add copy buttons to code blocks in Markdown preview",
     "version": "0.0.1",
     "publisher": "Jy-EggRoll",

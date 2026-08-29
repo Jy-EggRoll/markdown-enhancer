@@ -1,4 +1,4 @@
-# Markdown Enhancer
+# EggRoll Markdown Enhancer
 
 为 VS Code Markdown 预览中的代码块添加一键复制按钮。
 

@@ -52,7 +52,7 @@ jobs:
               uses: softprops/action-gh-release@v2
               with:
                   tag_name: ${{ steps.get_version.outputs.version }}
-                  name: 'Markdown Enhancer ${{ steps.get_version.outputs.version }} (Dev Build)'
+                  name: 'EggRoll Markdown Enhancer ${{ steps.get_version.outputs.version }} (Dev Build)'
                   body: |
                       # Development Build -- For Testing Only
 
