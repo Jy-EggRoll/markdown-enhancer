@@ -6,12 +6,12 @@ function addCopyButtons(): void {
     for (const code of codeBlocks) {
         const pre = code.parentElement as HTMLPreElement | null;
         // 跳过无 pre 容器或已挂载按钮的代码块，避免重复添加
-        if (!pre || pre.querySelector(".copy-button")) {
+        if (!pre || pre.querySelector(".md-enhancer-copy-button")) {
             continue;
         }
 
         const button = document.createElement("button");
-        button.className = "copy-button";
+        button.className = "md-enhancer-copy-button";
 
         // 图标走官方 codicon 字体（currentColor 继承按钮 color），不硬编码 SVG，无文字故无需 i18n
         const icon = document.createElement("span");

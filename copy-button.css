@@ -2,7 +2,8 @@
     position: relative;
 }
 
-.copy-button {
+/* 类名加 md-enhancer- 前缀，避免与其他扩展/用户主题冲突 */
+.md-enhancer-copy-button {
     position: absolute;
     top: 8px;
     right: 8px;
@@ -22,15 +23,15 @@
     transition: opacity 0.15s ease-in-out;
 }
 
-.copy-button:hover {
+.md-enhancer-copy-button:hover {
     background: var(--vscode-button-secondaryHoverBackground);
 }
 
 /* 复制成功：复用官方图表绿，缺失时回退到按钮前景色 */
-.copy-button.copied {
+.md-enhancer-copy-button.copied {
     color: var(--vscode-charts-green, var(--vscode-button-secondaryForeground));
 }
 
-.markdown-body pre:hover .copy-button {
+.markdown-body pre:hover .md-enhancer-copy-button {
     opacity: 1;
 }

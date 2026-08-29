@@ -1,0 +1,92 @@
+.markdown-body {
+    /* 暗色默认（Frappe） */
+    --ctp-rosewater: #f2d5cf;
+    --ctp-flamingo: #eebebe;
+    --ctp-pink: #f4b8e4;
+    --ctp-mauve: #ca9ee6;
+    --ctp-red: #e78284;
+    --ctp-maroon: #ea999c;
+    --ctp-peach: #ef9f76;
+    --ctp-yellow: #e5c890;
+    --ctp-green: #a6d189;
+    --ctp-teal: #81c8be;
+    --ctp-sky: #99d1db;
+    --ctp-sapphire: #85c1dc;
+    --ctp-blue: #8caaee;
+    --ctp-lavender: #babbf1;
+    --ctp-text: #c6d0f5;
+    --ctp-base: #303446;
+    --ctp-mantle: #292c3c;
+    --ctp-crust: #232634;
+    /* 标题色也可映射到调色板变量 */
+    --ctp-h1: var(--ctp-red);
+    --ctp-h2: var(--ctp-peach);
+    --ctp-h3: var(--ctp-yellow);
+    --ctp-h4: var(--ctp-green);
+    --ctp-h5: var(--ctp-blue);
+    --ctp-h6: var(--ctp-mauve);
+}
+
+/* 亮色模式覆盖（Latte） */
+.vscode-light .markdown-body {
+    --ctp-rosewater: #dc8a78;
+    --ctp-flamingo: #dd7878;
+    --ctp-pink: #ea76cb;
+    --ctp-mauve: #8839ef;
+    --ctp-red: #d20f39;
+    --ctp-maroon: #e64553;
+    --ctp-peach: #fe640b;
+    --ctp-yellow: #df8e1d;
+    --ctp-green: #40a02b;
+    --ctp-teal: #179299;
+    --ctp-sky: #04a5e5;
+    --ctp-sapphire: #209fb5;
+    --ctp-blue: #1e66f5;
+    --ctp-lavender: #7287fd;
+    --ctp-text: #4c4f69;
+    --ctp-base: #eff1f5;
+    --ctp-mantle: #e6e9ef;
+    --ctp-crust: #dce0e8;
+    --ctp-h1: var(--ctp-red);
+    --ctp-h2: var(--ctp-peach);
+    --ctp-h3: var(--ctp-yellow);
+    --ctp-h4: var(--ctp-green);
+    --ctp-h5: var(--ctp-blue);
+    --ctp-h6: var(--ctp-mauve);
+}
+
+.markdown-body h1 {
+    font-size: 2.2em;
+    color: var(--ctp-h1) !important;
+    text-align: center;
+}
+.markdown-body h2 {
+    font-size: 2em;
+    color: var(--ctp-h2) !important;
+    text-align: center;
+}
+.markdown-body h3 {
+    font-size: 1.8em;
+    color: var(--ctp-h3) !important;
+    text-align: center;
+}
+.markdown-body h4 {
+    font-size: 1.6em;
+    color: var(--ctp-h4) !important;
+    text-align: center;
+}
+.markdown-body h5 {
+    font-size: 1.4em;
+    color: var(--ctp-h5) !important;
+    text-align: center;
+}
+.markdown-body h6 {
+    font-size: 1.2em;
+    color: var(--ctp-h6) !important;
+    text-align: center;
+}
+
+body.showEditorSelection :not(tr, ul, ol).code-active-line:before,
+body.showEditorSelection :not(tr, ul, ol).code-line:hover:before {
+    content: none;
+}

@@ -7,7 +7,7 @@
 仅通过 `package.json` 的两个贡献点实现，无需任何扩展宿主逻辑：
 
 - `contributes.markdown.previewScripts` → `dist/preview.js`：在预览 webview 中为每个 `pre > code` 代码块挂载复制按钮。
-- `contributes.markdown.previewStyles` → `style.css`：按钮的悬停显示样式。
+- `contributes.markdown.previewStyles` → `dist/media/codicon.css`（官方图标字体）、`markdown-theme.css`（自有主题维护入口）、`copy-button.css`：复制按钮的显示样式。
 
 `markdown.previewScripts` / `markdown.previewStyles` 由 VS Code 在渲染 Markdown 预览时自动加载，因此本扩展的 `activationEvents` 为空数组，宿主入口 `src/extension.ts` 为空实现。
 

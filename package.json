@@ -22,7 +22,8 @@
         ],
         "markdown.previewStyles": [
             "./dist/media/codicon.css",
-            "./style.css"
+            "./markdown-theme.css",
+            "./copy-button.css"
         ]
     },
     "scripts": {
