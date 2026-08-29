@@ -16,10 +16,15 @@
 
 ```bash
 pnpm install
-pnpm compile        # tsc 类型检查 + esbuild 打包到 dist/
+pnpm compile        # tsc 类型检查 + esbuild 开发构建到 dist/（用于 F5 调试）
+pnpm run package    # 生产构建（esbuild --production 压缩），用于本地打 .vsix
 ```
 
 按 `F5` 启动扩展宿主，打开任意 `.md` 文件预览，鼠标悬停代码块即可看到右上角的复制按钮。
+
+## 发版
+
+本扩展通过 GitHub Actions 自动构建与发布，流程见 [RELEASE.md](./RELEASE.md)。
 
 ## 规范
 
