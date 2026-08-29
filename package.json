@@ -15,6 +15,7 @@
         "Other"
     ],
     "main": "./dist/extension.js",
+    "icon": "icon.png",
     "activationEvents": [],
     "contributes": {
         "markdown.previewScripts": [
@@ -37,8 +38,10 @@
         }
     },
     "scripts": {
-        "compile": "pnpm tsc --noEmit && node esbuild.js",
-        "vscode:prepublish": "pnpm run compile"
+        "check-types": "pnpm tsc --noEmit",
+        "compile": "pnpm run check-types && node esbuild.js",
+        "package": "pnpm run check-types && node esbuild.js --production",
+        "vscode:prepublish": "pnpm run package"
     },
     "repository": {
         "type": "git",
@@ -60,6 +63,7 @@
         "@types/node": "20.x",
         "@types/vscode": "^1.93.0",
         "@vscode/codicons": "^0.0.46-24",
+        "@vscode/vsce": "^3.3.2",
         "esbuild": "^0.25.9",
         "typescript": "^5.8.3"
     }
