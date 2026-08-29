@@ -1,0 +1,55 @@
+{
+    "name": "eggroll-markdown-enhancer",
+    "displayName": "Markdown Enhancer",
+    "description": "为 VS Code Markdown 预览中的代码块添加一键复制按钮 | Add copy buttons to code blocks in Markdown preview",
+    "version": "0.0.1",
+    "publisher": "Jy-EggRoll",
+    "author": {
+        "name": "EggRoll"
+    },
+    "license": "SEE LICENSE IN LICENSE",
+    "engines": {
+        "vscode": "^1.93.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "main": "./dist/extension.js",
+    "activationEvents": [],
+    "contributes": {
+        "markdown.previewScripts": [
+            "./dist/preview.js"
+        ],
+        "markdown.previewStyles": [
+            "./dist/media/codicon.css",
+            "./style.css"
+        ]
+    },
+    "scripts": {
+        "compile": "pnpm tsc --noEmit && node esbuild.js",
+        "vscode:prepublish": "pnpm run compile"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Jy-EggRoll/markdown-enhancer.git"
+    },
+    "homepage": "https://github.com/Jy-EggRoll/markdown-enhancer#readme",
+    "bugs": {
+        "url": "https://github.com/Jy-EggRoll/markdown-enhancer/issues"
+    },
+    "keywords": [
+        "markdown",
+        "preview",
+        "copy",
+        "code block",
+        "复制",
+        "代码块"
+    ],
+    "devDependencies": {
+        "@types/node": "20.x",
+        "@types/vscode": "^1.93.0",
+        "@vscode/codicons": "^0.0.46-24",
+        "esbuild": "^0.25.9",
+        "typescript": "^5.8.3"
+    }
+}
