@@ -18,7 +18,8 @@
         "markdown.previewStyles": [
             "./dist/media/codicon.css",
             "./markdown-theme.css",
-            "./copy-button.css"
+            "./copy-button.css",
+            "./code-block.css"
         ],
         "commands": [
             {
@@ -37,7 +38,7 @@
             ]
         }
     },
-    "description": "为 VS Code Markdown 预览中的代码块添加一键复制按钮 | Add copy buttons to code blocks in Markdown preview",
+    "description": "为 VS Code Markdown 预览中的代码块增强展示：顶部标题栏显示语言名并提供常驻复制按钮 | Enhance code blocks in VS Code Markdown preview with a top bar showing the language name and an always-visible copy button",
     "devDependencies": {
         "@types/node": "20.x",
         "@types/vscode": "^1.93.0",
@@ -74,5 +75,5 @@
         "package": "pnpm run check-types && node esbuild.js --production",
         "vscode:prepublish": "pnpm run package"
     },
-    "version": "0.0.4"
+    "version": "0.0.5"
 }

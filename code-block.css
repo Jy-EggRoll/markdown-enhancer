@@ -1,0 +1,50 @@
+/* 组合标题栏：语言名（左）+ 复制按钮（右），覆盖在每个代码块顶部 */
+:root {
+    /* 与 VS Code 预览代码块内边距（padding: 16px）保持一致，保证上下留白对称 */
+    --md-code-gap: 16px;
+}
+
+.markdown-body pre {
+    /* 标题栏高度 28px + 与代码同宽的 16px 间隙 */
+    padding-top: calc(28px + var(--md-code-gap));
+}
+
+.md-enhancer-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    /* 在代码块背景（--vscode-textCodeBlock-background）基础上掺入少量前景色，
+       形成同源但可见的色差，深浅/高对比主题均自适应 */
+    background: color-mix(
+        in srgb,
+        var(--vscode-textCodeBlock-background, var(--vscode-editorWidget-background, transparent)) 90%,
+        var(--vscode-foreground) 10%
+    );
+    border-bottom: 1px solid var(--vscode-widget-border, transparent);
+    z-index: 2;
+}
+
+.md-enhancer-lang {
+    /* 复用编辑器字体与中性前景色，随主题自动适配，不硬编码 */
+    font-family: var(--vscode-editor-font-family, var(--vscode-font-family, monospace));
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--vscode-descriptionForeground, var(--vscode-foreground, inherit));
+}
+
+/* 复制按钮移入标题栏后改为静态定位，常驻显示（不再随 hover 显隐）；
+   margin-left:auto 使其始终靠右，无语言名时也不会跑到左上角 */
+.md-enhancer-header .md-enhancer-copy-button {
+    position: static;
+    width: 24px;
+    height: 24px;
+    margin-left: auto;
+    opacity: 1;
+}
