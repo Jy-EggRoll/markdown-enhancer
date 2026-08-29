@@ -24,7 +24,17 @@
             "./dist/media/codicon.css",
             "./markdown-theme.css",
             "./copy-button.css"
-        ]
+        ],
+        "menus": {
+            "editor/title": [
+                {
+                    "command": "markdown.showPreview",
+                    "when": "editorLangId == markdown",
+                    "group": "navigation",
+                    "icon": "$(search-sparkle)"
+                }
+            ]
+        }
     },
     "scripts": {
         "compile": "pnpm tsc --noEmit && node esbuild.js",
