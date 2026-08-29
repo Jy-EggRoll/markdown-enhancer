@@ -1,5 +1,7 @@
 {
-    "activationEvents": [],
+    "activationEvents": [
+        "onCommand:eggroll-markdown-enhancer.showPreview"
+    ],
     "author": {
         "name": "EggRoll"
     },
@@ -18,12 +20,18 @@
             "./markdown-theme.css",
             "./copy-button.css"
         ],
+        "commands": [
+            {
+                "command": "eggroll-markdown-enhancer.showPreview",
+                "title": "%description.showPreview%",
+                "icon": "$(code-oss)"
+            }
+        ],
         "menus": {
             "editor/title": [
                 {
-                    "command": "markdown.showPreview",
+                    "command": "eggroll-markdown-enhancer.showPreview",
                     "group": "navigation",
-                    "icon": "$(search-sparkle)",
                     "when": "editorLangId == markdown"
                 }
             ]
@@ -66,5 +74,5 @@
         "package": "pnpm run check-types && node esbuild.js --production",
         "vscode:prepublish": "pnpm run package"
     },
-    "version": "0.0.3"
+    "version": "0.0.4"
 }
