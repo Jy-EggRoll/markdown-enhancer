@@ -18,7 +18,6 @@
         "markdown.previewStyles": [
             "./dist/media/codicon.css",
             "./markdown-theme.css",
-            "./copy-button.css",
             "./code-block.css"
         ],
         "commands": [
@@ -58,8 +57,11 @@
         "preview",
         "copy",
         "code block",
+        "language",
+        "header",
         "复制",
-        "代码块"
+        "代码块",
+        "语言名"
     ],
     "license": "SEE LICENSE IN LICENSE",
     "main": "./dist/extension.js",

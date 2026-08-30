@@ -7,10 +7,10 @@
 仅通过 `package.json` 的贡献点实现，无需任何扩展宿主逻辑：
 
 - `contributes.markdown.previewScripts` → `dist/preview.js`：在预览 webview 中为每个 `pre > code` 代码块挂载顶部组合标题栏（左侧语言名、右侧复制按钮）。
-- `contributes.markdown.previewStyles` → `dist/media/codicon.css`（官方图标字体）、`markdown-theme.css`（自有主题维护入口）、`copy-button.css`（复制按钮样式）、`code-block.css`（顶部标题栏与语言名样式）。
+- `contributes.markdown.previewStyles` → `dist/media/codicon.css`（官方图标字体）、`markdown-theme.css`（自有主题维护入口）、`code-block.css`（顶部标题栏、语言名与复制按钮样式）。
 - `contributes.menus.editor/title` → `markdown.showPreview`：`editorLangId == markdown` 时在编辑器标题栏显示"打开预览"按钮（与内置的"并排打开预览"并存）。
 
-`markdown.previewScripts` / `markdown.previewStyles` 由 VS Code 在渲染 Markdown 预览时自动加载，因此本扩展的 `activationEvents` 为空数组，宿主入口 `src/extension.ts` 为空实现。
+`markdown.previewScripts` / `markdown.previewStyles` 由 VS Code 在渲染 Markdown 预览时自动加载；扩展宿主（`src/extension.ts`）仅把"打开预览"命令转发到 VS Code 内置预览，无额外逻辑。
 
 ## 开发
 
