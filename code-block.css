@@ -39,12 +39,12 @@
 }
 
 .md-enhancer-lang {
-    /* 复用编辑器字体与中性前景色，随主题自动适配，不硬编码 */
+    /* 复用编辑器字体与主题强调色，随主题自动适配 */
     font-family: var(--vscode-editor-font-family, var(--vscode-font-family, monospace));
     font-size: 12px;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    color: var(--vscode-descriptionForeground, var(--vscode-foreground, inherit));
+    color: var(--vscode-focusBorder, var(--vscode-accent-foreground, inherit));
 }
 
 /* 复制按钮：移入标题栏后改为静态定位、常驻显示（不再随 hover 显隐）；
