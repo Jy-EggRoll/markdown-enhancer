@@ -1,12 +1,17 @@
 /* 组合标题栏：语言名（左）+ 复制按钮（右），覆盖在每个代码块顶部 */
 :root {
-    /* 与 VS Code 预览代码块内边距（padding: 16px）保持一致，保证上下留白对称 */
+    /* 与 VS Code 代码块内边距（padding: 16px）保持一致，保证上下留白对称 */
     --md-code-gap: 16px;
+    /* 代码块统一圆角，较 VS Code 默认的 3px 明显更圆润 */
+    --md-radius: 10px;
 }
 
 .markdown-body pre {
+    /* 顶栏 absolute 的定位锚点（原在已删的 copy-button.css，这里补回） */
+    position: relative;
     /* 标题栏高度 28px + 与代码同宽的 16px 间隙 */
     padding-top: calc(28px + var(--md-code-gap));
+    border-radius: var(--md-radius);
 }
 
 .md-enhancer-header {
@@ -19,6 +24,9 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 12px;
+    /* 顶栏上沿圆角与代码块一致 */
+    border-top-left-radius: var(--md-radius);
+    border-top-right-radius: var(--md-radius);
     /* 在代码块背景（--vscode-textCodeBlock-background）基础上掺入少量前景色，
        形成同源但可见的色差，深浅/高对比主题均自适应 */
     background: color-mix(
@@ -39,12 +47,31 @@
     color: var(--vscode-descriptionForeground, var(--vscode-foreground, inherit));
 }
 
-/* 复制按钮移入标题栏后改为静态定位，常驻显示（不再随 hover 显隐）；
+/* 复制按钮：移入标题栏后改为静态定位、常驻显示（不再随 hover 显隐）；
    margin-left:auto 使其始终靠右，无语言名时也不会跑到左上角 */
 .md-enhancer-header .md-enhancer-copy-button {
     position: static;
     width: 24px;
     height: 24px;
     margin-left: auto;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: var(--md-radius);
+    color: var(--vscode-button-secondaryForeground);
+    background: transparent;
+    cursor: pointer;
     opacity: 1;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.md-enhancer-header .md-enhancer-copy-button:hover {
+    background: var(--vscode-button-secondaryHoverBackground);
+}
+
+/* 复制成功：复用官方图表绿，缺失时回退到按钮前景色 */
+.md-enhancer-header .md-enhancer-copy-button.copied {
+    color: var(--vscode-charts-green, var(--vscode-button-secondaryForeground));
 }
