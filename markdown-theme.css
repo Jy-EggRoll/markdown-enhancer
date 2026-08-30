@@ -57,32 +57,32 @@
 
 .markdown-body h1 {
     font-size: 2.2em;
-    color: color-mix(in srgb, var(--ctp-h1) 80%, var(--vscode-foreground)) !important;
+    color: color-mix(in srgb, var(--ctp-h1) 80%, var(--vscode-foreground));
     text-align: center;
 }
 .markdown-body h2 {
     font-size: 2em;
-    color: color-mix(in srgb, var(--ctp-h2) 80%, var(--vscode-foreground)) !important;
+    color: color-mix(in srgb, var(--ctp-h2) 80%, var(--vscode-foreground));
     text-align: center;
 }
 .markdown-body h3 {
     font-size: 1.8em;
-    color: color-mix(in srgb, var(--ctp-h3) 80%, var(--vscode-foreground)) !important;
+    color: color-mix(in srgb, var(--ctp-h3) 80%, var(--vscode-foreground));
     text-align: center;
 }
 .markdown-body h4 {
     font-size: 1.6em;
-    color: color-mix(in srgb, var(--ctp-h4) 80%, var(--vscode-foreground)) !important;
+    color: color-mix(in srgb, var(--ctp-h4) 80%, var(--vscode-foreground));
     text-align: center;
 }
 .markdown-body h5 {
     font-size: 1.4em;
-    color: color-mix(in srgb, var(--ctp-h5) 80%, var(--vscode-foreground)) !important;
+    color: color-mix(in srgb, var(--ctp-h5) 80%, var(--vscode-foreground));
     text-align: center;
 }
 .markdown-body h6 {
     font-size: 1.2em;
-    color: color-mix(in srgb, var(--ctp-h6) 80%, var(--vscode-foreground)) !important;
+    color: color-mix(in srgb, var(--ctp-h6) 80%, var(--vscode-foreground));
     text-align: center;
 }
 

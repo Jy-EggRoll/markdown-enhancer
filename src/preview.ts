@@ -21,22 +21,24 @@ function buildCopyButton(code: HTMLElement): HTMLButtonElement {
     button.className = "md-enhancer-copy-button";
     button.setAttribute("aria-label", "Copy code");
 
-    // 图标走官方 codicon 字体（currentColor 继承按钮 color），不硬编码 SVG，无文字故无需 i18n
     const icon = document.createElement("span");
     icon.className = "codicon codicon-copy";
     button.appendChild(icon);
 
+    let copying = false;
     button.addEventListener("click", () => {
-        const text = code.textContent ?? "";
-        copyText(text).then((ok) => {
-            if (ok) {
-                icon.className = "codicon codicon-check";
-                button.classList.add("copied");
-            }
+        if (copying) return;
+        copying = true;
+        navigator.clipboard.writeText(code.textContent ?? "").then(() => {
+            icon.className = "codicon codicon-check";
+            button.classList.add("copied");
             window.setTimeout(() => {
                 icon.className = "codicon codicon-copy";
                 button.classList.remove("copied");
-            }, 1500);
+                copying = false;
+            }, 1000);
+        }).catch(() => {
+            copying = false;
         });
     });
 
@@ -134,24 +136,6 @@ function addEnhancements(): void {
         }
     }
     enhanceCallouts();
-}
-
-async function copyText(text: string): Promise<boolean> {
-    try {
-        await navigator.clipboard.writeText(text);
-        return true;
-    } catch {
-        // 降级：部分 webview 环境无 clipboard API，使用临时 textarea + execCommand
-        const textarea = document.createElement("textarea");
-        textarea.value = text;
-        textarea.style.position = "fixed";
-        textarea.style.opacity = "0";
-        document.body.appendChild(textarea);
-        textarea.select();
-        const ok = document.execCommand("copy");
-        document.body.removeChild(textarea);
-        return ok;
-    }
 }
 
 addEnhancements();

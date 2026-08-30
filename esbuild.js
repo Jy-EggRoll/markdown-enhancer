@@ -58,6 +58,9 @@ function copyCodicon() {
 }
 
 async function main() {
+    // 每次构建前清理 dist，防止旧产物残留
+    fs.rmSync(path.join(__dirname, "dist"), { recursive: true, force: true });
+
     // 扩展宿主脚本：node/cjs，仅占位（本扩展无宿主逻辑），供 VSCode 加载。
     await makeContext({
         entryPoints: ['src/extension.ts'],
