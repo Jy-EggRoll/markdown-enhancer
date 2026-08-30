@@ -10,8 +10,9 @@ node_modules/
 **/*.ts
 esbuild.js
 
-# 排除演示图片
+# 排除演示图片、演示 md 文档
 readme-img/
+demo.md
 
 # 排除工作区文件
 **/*.code-workspace
