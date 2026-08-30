@@ -1,0 +1,47 @@
+/* GitHub 风格特殊引用块（> [!NOTE] 等）
+   颜色复用 markdown-theme.css 的 Catppuccin 变量（--ctp-*，亮/暗自动适配），
+   图标复用官方 codicon 字体，不硬编码 SVG */
+
+.md-enhancer-callout {
+    /* 左边框与淡底均取自类型色（每类在下方覆盖 --md-callout-color） */
+    border-left: 4px solid var(--md-callout-color, var(--ctp-blue));
+    background: color-mix(in srgb, var(--md-callout-color, var(--ctp-blue)) 10%, transparent);
+    border-radius: var(--md-radius, 10px);
+    padding: 12px 16px;
+    margin: 16px 0;
+}
+
+.md-enhancer-callout-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    color: var(--md-callout-color, var(--ctp-blue));
+    margin-bottom: 6px;
+}
+
+.md-enhancer-callout-title .codicon {
+    font-size: 16px;
+}
+
+.md-enhancer-callout-label {
+    /* 英文类型名（Note/Tip/...），与 GitHub 原生一致，无需翻译 */
+    letter-spacing: 0.02em;
+}
+
+/* 类型 → Catppuccin 色映射 */
+.md-enhancer-callout-note {
+    --md-callout-color: var(--ctp-blue);
+}
+.md-enhancer-callout-tip {
+    --md-callout-color: var(--ctp-green);
+}
+.md-enhancer-callout-important {
+    --md-callout-color: var(--ctp-mauve);
+}
+.md-enhancer-callout-warning {
+    --md-callout-color: var(--ctp-yellow);
+}
+.md-enhancer-callout-caution {
+    --md-callout-color: var(--ctp-red);
+}

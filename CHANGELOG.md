@@ -1,5 +1,10 @@
 # 更新日志
 
+## 0.0.6
+
+- 支持 GitHub 风格特殊引用块（`> [!NOTE]` / `> [!TIP]` / `> [!IMPORTANT]` / `> [!WARNING]` / `> [!CAUTION]`）：渲染为带类型色左边框、淡底与官方 codicon 图标的 callout
+- callout 配色复用 Catppuccin 变量（`--ctp-*`），深浅/高对比主题自动适配；标题用 GitHub 原生英文类型名
+
 ## 0.0.5
 
 - 代码块顶部新增组合标题栏：左侧显示语言名（仅 `lang` 围栏时显示），右侧为复制按钮
