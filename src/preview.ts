@@ -83,7 +83,7 @@ function enhanceCallouts(): void {
         }
 
         // 剔除首行的 [!TYPE] 标记文本（保留其余内容）
-        stripCalloutMarker(bq, match[0]);
+        stripCalloutMarker(bq);
 
         bq.classList.add("md-enhancer-callout", `md-enhancer-callout-${type}`);
 
@@ -99,14 +99,16 @@ function enhanceCallouts(): void {
     }
 }
 
-// 从 blockquote 文本中移除 [!TYPE] 标记；若标记独占一个空段落则一并删去，避免多余空行
-function stripCalloutMarker(bq: HTMLElement, marker: string): void {
+// 从 blockquote 文本节点中移除 [!TYPE] 标记；若标记独占一个空段落则一并删去，避免多余空行
+function stripCalloutMarker(bq: HTMLElement): void {
     const walker = document.createTreeWalker(bq, NodeFilter.SHOW_TEXT);
     let node: Node | null;
     while ((node = walker.nextNode())) {
         const textNode = node as Text;
-        const idx = textNode.data.indexOf(marker);
-        if (idx >= 0) {
+        const m = textNode.data.match(CALLOUT_RE);
+        if (m) {
+            const marker = m[0];
+            const idx = textNode.data.indexOf(marker);
             const rest = textNode.data.slice(idx + marker.length).replace(/^\s+/, "");
             textNode.data = textNode.data.slice(0, idx) + rest;
             const parent = textNode.parentElement;
