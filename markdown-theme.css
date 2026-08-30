@@ -86,6 +86,7 @@
     text-align: center;
 }
 
+/* 屏蔽 VS Code 内置的 .code-line 当前行/悬停标记（该特性体验较差） */
 body.showEditorSelection :not(tr, ul, ol).code-active-line:before,
 body.showEditorSelection :not(tr, ul, ol).code-line:hover:before {
     content: none;
