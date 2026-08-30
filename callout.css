@@ -17,11 +17,26 @@
     gap: 6px;
     font-weight: 600;
     color: var(--md-callout-color, var(--ctp-blue));
-    margin-bottom: 6px;
+    margin-bottom: 0;
+}
+
+/* 标题与正文之间保留 6px 间距（仅当下方有内容时生效） */
+.md-enhancer-callout-title + * {
+    margin-top: 6px;
 }
 
 .md-enhancer-callout-title .codicon {
     font-size: 16px;
+}
+
+/* 正文最后一段底边距归零（对齐顶部 padding，保证上下对称） */
+.md-enhancer-callout > p:last-child {
+    margin-bottom: 0;
+}
+
+/* 空段落（来自 > 空行）不占位 */
+.md-enhancer-callout > p:empty {
+    display: none;
 }
 
 .md-enhancer-callout-label {
