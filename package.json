@@ -1,82 +1,84 @@
 {
-    "activationEvents": [
-        "onCommand:eggroll-markdown-enhancer.showPreview"
+  "activationEvents": [
+    "onCommand:eggroll-markdown-enhancer.showPreview"
+  ],
+  "author": {
+    "name": "EggRoll"
+  },
+  "bugs": {
+    "url": "https://github.com/Jy-EggRoll/markdown-enhancer/issues"
+  },
+  "categories": [
+    "Other"
+  ],
+  "contributes": {
+    "markdown.previewScripts": [
+      "./dist/preview.js"
     ],
-    "author": {
-        "name": "EggRoll"
-    },
-    "bugs": {
-        "url": "https://github.com/Jy-EggRoll/markdown-enhancer/issues"
-    },
-    "categories": [
-        "Other"
+    "markdown.previewStyles": [
+      "./dist/media/codicon.css",
+      "./markdown-theme.css",
+      "./code-block.css",
+      "./callout.css"
     ],
-    "contributes": {
-        "markdown.previewScripts": [
-            "./dist/preview.js"
-        ],
-        "markdown.previewStyles": [
-            "./dist/media/codicon.css",
-            "./markdown-theme.css",
-            "./code-block.css",
-            "./callout.css"
-        ],
-        "commands": [
-            {
-                "command": "eggroll-markdown-enhancer.showPreview",
-                "title": "%description.showPreview%",
-                "icon": "$(code-oss)"
-            }
-        ],
-        "menus": {
-            "editor/title": [
-                {
-                    "command": "eggroll-markdown-enhancer.showPreview",
-                    "group": "navigation",
-                    "when": "editorLangId == markdown"
-                }
-            ]
+    "commands": [
+      {
+        "command": "eggroll-markdown-enhancer.showPreview",
+        "title": "%description.showPreview%",
+        "icon": "$(code-oss)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "eggroll-markdown-enhancer.showPreview",
+          "group": "navigation",
+          "when": "editorLangId == markdown"
         }
-    },
-    "description": "为 VS Code Markdown 预览中的代码块增强展示：顶部标题栏显示语言名并提供常驻复制按钮 | Enhance code blocks in VS Code Markdown preview with a top bar showing the language name and an always-visible copy button",
-    "devDependencies": {
-        "@types/node": "20.x",
-        "@types/vscode": "^1.93.0",
-        "@vscode/codicons": "^0.0.46-24",
-        "@vscode/vsce": "^3.3.2",
-        "esbuild": "^0.25.9",
-        "typescript": "^5.8.3"
-    },
-    "displayName": "EggRoll Markdown Enhancer",
-    "engines": {
-        "vscode": "^1.93.0"
-    },
-    "homepage": "https://github.com/Jy-EggRoll/markdown-enhancer#readme",
-    "icon": "icon.png",
-    "keywords": [
-        "markdown",
-        "preview",
-        "copy",
-        "code block",
-        "language",
-        "header",
-        "复制",
-        "代码块",
-        "语言名"
-    ],
-    "license": "SEE LICENSE IN LICENSE",
-    "main": "./dist/extension.js",
-    "name": "eggroll-markdown-enhancer",
-    "publisher": "Jy-EggRoll",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/Jy-EggRoll/markdown-enhancer.git"
-    },
-    "scripts": {
-        "check-types": "pnpm tsc --noEmit",
-        "compile": "pnpm run check-types && node esbuild.js",
-        "package": "pnpm run check-types && node esbuild.js --production",
-        "vscode:prepublish": "pnpm run package"
-    },
-    "version": "0.0.7"
+      ]
+    }
+  },
+  "description": "为 VS Code Markdown 预览中的代码块增强展示：顶部标题栏显示语言名并提供常驻复制按钮 | Enhance code blocks in VS Code Markdown preview with a top bar showing the language name and an always-visible copy button",
+  "devDependencies": {
+    "@types/node": "20.x",
+    "@types/vscode": "^1.93.0",
+    "@vscode/codicons": "^0.0.46-24",
+    "@vscode/vsce": "^3.3.2",
+    "esbuild": "^0.25.9",
+    "typescript": "^5.8.3"
+  },
+  "displayName": "EggRoll Markdown Enhancer",
+  "engines": {
+    "vscode": "^1.93.0"
+  },
+  "homepage": "https://github.com/Jy-EggRoll/markdown-enhancer#readme",
+  "icon": "icon.png",
+  "keywords": [
+    "markdown",
+    "preview",
+    "copy",
+    "code block",
+    "language",
+    "header",
+    "复制",
+    "代码块",
+    "语言名"
+  ],
+  "license": "SEE LICENSE IN LICENSE",
+  "main": "./dist/extension.js",
+  "name": "eggroll-markdown-enhancer",
+  "publisher": "Jy-EggRoll",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jy-EggRoll/markdown-enhancer.git"
+  },
+  "scripts": {
+    "check-types": "pnpm tsc --noEmit",
+    "compile": "pnpm run check-types && node esbuild.js",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "package": "pnpm run check-types && node esbuild.js --production",
+    "vscode:prepublish": "pnpm run package"
+  },
+  "version": "0.0.7"
 }
