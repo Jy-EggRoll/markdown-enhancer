@@ -18,6 +18,7 @@
 pnpm install
 pnpm compile        # tsc 类型检查 + esbuild 开发构建到 dist/（用于 F5 调试）
 pnpm run package    # 生产构建（esbuild --production 压缩），用于本地打 .vsix
+pnpm format         # 用 prettier 默认风格格式化全仓（prettier 由 mise 全局提供，未列入 devDependencies）
 ```
 
 按 `F5` 启动扩展宿主，打开任意 `.md` 文件预览，即可看到每个代码块顶部的标题栏：左侧为语言名（仅 `lang` 围栏时显示），右侧为常驻的复制按钮。

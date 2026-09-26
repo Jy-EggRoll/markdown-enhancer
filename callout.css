@@ -3,14 +3,12 @@
    图标复用官方 codicon 字体，不硬编码 SVG */
 
 .md-enhancer-callout {
-  /* 左边框与淡底均取自类型色（每类在下方覆盖 --md-callout-color） */
-  border-left: 4px solid var(--md-callout-color, var(--ctp-blue));
-  background: color-mix(
-    in srgb,
-    var(--md-callout-color, var(--ctp-blue)) 10%,
-    transparent
-  );
-  border-radius: var(--md-radius, 10px);
+  /* 默认类型色；每种类型在文件末尾覆盖 --md-callout-color */
+  --md-callout-color: var(--ctp-blue);
+  /* 左边框与淡底均取自类型色 */
+  border-left: 4px solid var(--md-callout-color);
+  background: color-mix(in srgb, var(--md-callout-color) 10%, transparent);
+  border-radius: var(--md-radius);
   padding: 12px 16px;
   margin: 16px 0;
 }
@@ -20,7 +18,7 @@
   align-items: center;
   gap: 6px;
   font-weight: 600;
-  color: var(--md-callout-color, var(--ctp-blue));
+  color: var(--md-callout-color);
   margin-bottom: 0;
 }
 

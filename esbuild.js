@@ -3,46 +3,16 @@ const fs = require("fs");
 const path = require("path");
 
 const production = process.argv.includes("--production");
-const watch = process.argv.includes("--watch");
 
-/**
- * 编译期问题输出插件：在 watch 模式下打印构建开始/结束与错误信息，
- * 与 tree-enhancer 的 esbuild 配置保持一致。
- */
-const problemMatcher = {
-  name: "esbuild-problem-matcher",
-  setup(build) {
-    build.onStart(() => console.log("[watch] build started"));
-    build.onEnd((result) => {
-      result.errors.forEach(({ text, location }) => {
-        console.error(`✘ [ERROR] ${text}`);
-        if (location) {
-          console.error(
-            `    ${location.file}:${location.line}:${location.column}:`,
-          );
-        }
-      });
-      console.log("[watch] build finished");
-    });
-  },
-};
-
-async function makeContext(options) {
-  const ctx = await esbuild.context({
+/** 两个入口共用同一份构建配置，差异只在各自的 entry/platform/format */
+async function build(options) {
+  await esbuild.build({
     bundle: true,
     minify: production,
     sourcemap: true,
     sourcesContent: false,
-    logLevel: "silent",
-    plugins: [problemMatcher],
     ...options,
   });
-  if (watch) {
-    await ctx.watch();
-  } else {
-    await ctx.rebuild();
-    await ctx.dispose();
-  }
 }
 
 /**
@@ -64,7 +34,7 @@ async function main() {
   fs.rmSync(path.join(__dirname, "dist"), { recursive: true, force: true });
 
   // 扩展宿主脚本：node/cjs，仅占位（本扩展无宿主逻辑），供 VSCode 加载。
-  await makeContext({
+  await build({
     entryPoints: ["src/extension.ts"],
     platform: "node",
     format: "cjs",
@@ -73,7 +43,7 @@ async function main() {
   });
 
   // Markdown 预览注入脚本：运行在预览 webview（浏览器环境），故用 browser/iife。
-  await makeContext({
+  await build({
     entryPoints: ["src/preview.ts"],
     platform: "browser",
     format: "iife",

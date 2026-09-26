@@ -6,15 +6,26 @@
 const LANGUAGE_RE = /(?:^|\s)language-([\w+-]+)/;
 
 // GitHub 5 种 alert 类型 → 官方 codicon 图标 + 英文标题（与 GitHub 原生一致）
-const CALLOUT_TYPES: Record<string, { icon: string; label: string }> = {
+const CALLOUT_TYPES = {
   note: { icon: "codicon-info", label: "Note" },
   tip: { icon: "codicon-light-bulb", label: "Tip" },
   important: { icon: "codicon-report", label: "Important" },
   warning: { icon: "codicon-warning", label: "Warning" },
   caution: { icon: "codicon-error", label: "Caution" },
-};
+} as const;
 
-const CALLOUT_RE = /^\s*\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]/i;
+type CalloutType = keyof typeof CALLOUT_TYPES;
+
+// 类型清单由 CALLOUT_TYPES 派生，新增类型只需改上面一处
+const CALLOUT_RE = new RegExp(
+  `^\\s*\\[!(${Object.keys(CALLOUT_TYPES).join("|")})\\]`,
+  "i",
+);
+
+function isCalloutType(value: string): value is CalloutType {
+  // 用 hasOwn 而非 `in`，避免把原型链上的键（toString 等）当成合法类型
+  return Object.hasOwn(CALLOUT_TYPES, value);
+}
 
 function buildCopyButton(code: HTMLElement): HTMLButtonElement {
   const button = document.createElement("button");
@@ -82,10 +93,10 @@ function enhanceCallouts(): void {
       continue;
     }
     const type = match[1].toLowerCase();
-    const meta = CALLOUT_TYPES[type];
-    if (!meta) {
+    if (!isCalloutType(type)) {
       continue;
     }
+    const meta = CALLOUT_TYPES[type];
 
     // 剔除首行的 [!TYPE] 标记文本（保留其余内容）
     stripCalloutMarker(bq);

@@ -1,7 +1,4 @@
 {
-  "activationEvents": [
-    "onCommand:eggroll-markdown-enhancer.showPreview"
-  ],
   "author": {
     "name": "EggRoll"
   },

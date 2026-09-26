@@ -42,6 +42,21 @@ jobs:
             exit 1
           fi
 
+      - name: Extract CHANGELOG section
+        id: changelog
+        run: |
+          VERSION="${{ steps.get_version.outputs.version }}"
+          awk -v v="$VERSION" '
+            BEGIN { gsub(/\./, "\\.", v); pat = "^##[[:space:]]+" v "([[:space:]]|$)" }
+            $0 ~ pat { f = 1; next }
+            f && /^##/ { exit }
+            f { print }
+          ' CHANGELOG.md > changelog_section.md
+          if [ -z "$(tr -d '[:space:]' < changelog_section.md)" ]; then
+            echo "::error::CHANGELOG.md has no non-empty '## $VERSION' section, so the GitHub Release notes would be empty. Add the section before tagging."
+            exit 1
+          fi
+
       - name: Verify marketplace token
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
@@ -75,11 +90,8 @@ jobs:
           PREV="${{ steps.previous_tag.outputs.previous_tag }}"
 
           echo "# EggRoll Markdown Enhancer $CUR" > release_notes.md
-
-          if [ -f CHANGELOG.md ]; then
-            echo "## What's Changed" >> release_notes.md
-            awk -v v="$CUR" '/^##/{if(f)exit; if($0~v)f=1;next} f&&/^##/{exit} f{print}' CHANGELOG.md >> release_notes.md
-          fi
+          echo "## What's Changed" >> release_notes.md
+          cat changelog_section.md >> release_notes.md
 
           echo "" >> release_notes.md
           if [ -n "$PREV" ]; then

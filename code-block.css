@@ -1,16 +1,17 @@
-/* 组合标题栏：语言名（左）+ 复制按钮（右），覆盖在每个代码块顶部 */
-:root {
+/* 组合标题栏：语言名（左）+ 复制按钮（右），覆盖在每个代码块顶部。
+   这里只声明代码块私有的尺寸 token，共享 token 见 markdown-theme.css */
+.markdown-body {
   /* 与 VS Code 代码块内边距（padding: 16px）保持一致，保证上下留白对称 */
   --md-code-gap: 16px;
-  /* 代码块统一圆角，较 VS Code 默认的 3px 明显更圆润 */
-  --md-radius: 10px;
+  /* 顶栏高度：同时决定 pre 的 padding-top 与顶栏自身高度 */
+  --md-code-header-height: 28px;
 }
 
 .markdown-body pre {
-  /* 顶栏 absolute 的定位锚点（原在已删的 copy-button.css，这里补回） */
+  /* 顶栏 absolute 的定位锚点 */
   position: relative;
-  /* 标题栏高度 28px + 与代码同宽的 16px 间隙 */
-  padding-top: calc(28px + var(--md-code-gap));
+  /* 顶栏高度 + 与代码同宽的间隙 */
+  padding-top: calc(var(--md-code-header-height) + var(--md-code-gap));
   border-radius: var(--md-radius);
 }
 
@@ -19,7 +20,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 28px;
+  height: var(--md-code-header-height);
   display: flex;
   align-items: center;
   justify-content: space-between;

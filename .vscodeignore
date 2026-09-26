@@ -10,8 +10,7 @@ node_modules/
 **/*.ts
 esbuild.js
 
-# 排除演示图片、演示 md 文档
-readme-img/
+# 排除演示 md 文档（readme-img/ 不能排除：Marketplace 展示 README 时同样需要这些图片）
 demo.md
 
 # 排除工作区文件
@@ -19,6 +18,9 @@ demo.md
 
 # 排除工作流等文件
 .github/
+
+# 排除发布流程在仓库根目录产生的中间文件（publish.yml 的 Extract CHANGELOG 步骤）
+changelog_section.md
 
 # 排除 lock 文件
 pnpm-lock.yaml
@@ -28,3 +30,6 @@ AGENTS.md
 RELEASE.md
 pnpm-workspace.yaml
 scripts/
+
+# 排除格式化配置
+.prettierignore

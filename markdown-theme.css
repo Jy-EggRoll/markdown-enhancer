@@ -1,3 +1,9 @@
+/* 设计 token 的唯一所有者
+   变量统一用 --ctp-*（调色板）与 --md-*（尺寸）前缀。
+   跨文件共享的 token 只在此处声明，其余 CSS 只消费、不回退：
+   - --ctp-*      调色板（暗色 Frappe 为默认值，亮色由 Latte 覆盖）
+   - --md-radius  代码块与 callout 共用的圆角
+   组件私有的 --md-* token 声明在使用它的组件文件里（见 code-block.css）。 */
 .markdown-body {
   /* 暗色默认（Frappe） */
   --ctp-rosewater: #f2d5cf;
@@ -18,7 +24,12 @@
   --ctp-base: #303446;
   --ctp-mantle: #292c3c;
   --ctp-crust: #232634;
-  /* 标题色也可映射到调色板变量 */
+
+  /* 代码块与 callout 共用的圆角，较 VS Code 默认的 3px 明显更圆润 */
+  --md-radius: 10px;
+
+  /* 标题色映射到调色板。只在暗色下定义一次：亮色只需覆盖上面的调色板，
+       映射关系经由 var() 间接生效，无需重复一份 */
   --ctp-h1: var(--ctp-red);
   --ctp-h2: var(--ctp-peach);
   --ctp-h3: var(--ctp-yellow);
@@ -27,7 +38,7 @@
   --ctp-h6: var(--ctp-mauve);
 }
 
-/* 亮色模式覆盖（Latte） */
+/* 亮色模式覆盖（Latte）：仅覆盖调色板 */
 .vscode-light .markdown-body {
   --ctp-rosewater: #dc8a78;
   --ctp-flamingo: #dd7878;
@@ -47,43 +58,39 @@
   --ctp-base: #eff1f5;
   --ctp-mantle: #e6e9ef;
   --ctp-crust: #dce0e8;
-  --ctp-h1: var(--ctp-red);
-  --ctp-h2: var(--ctp-peach);
-  --ctp-h3: var(--ctp-yellow);
-  --ctp-h4: var(--ctp-green);
-  --ctp-h5: var(--ctp-blue);
-  --ctp-h6: var(--ctp-mauve);
 }
 
-.markdown-body h1 {
-  font-size: 2.2em;
-  color: color-mix(in srgb, var(--ctp-h1) 80%, var(--vscode-foreground));
+/* 各级标题共享同一套排版策略：颜色统一由当前级别的 --ctp-heading 决定，
+   混色公式只出现这一处 */
+.markdown-body :is(h1, h2, h3, h4, h5, h6) {
+  color: color-mix(in srgb, var(--ctp-heading) 80%, var(--vscode-foreground));
   text-align: center;
+}
+
+/* 每级标题只声明自己的标题色与字号 */
+.markdown-body h1 {
+  --ctp-heading: var(--ctp-h1);
+  font-size: 2.2em;
 }
 .markdown-body h2 {
+  --ctp-heading: var(--ctp-h2);
   font-size: 2em;
-  color: color-mix(in srgb, var(--ctp-h2) 80%, var(--vscode-foreground));
-  text-align: center;
 }
 .markdown-body h3 {
+  --ctp-heading: var(--ctp-h3);
   font-size: 1.8em;
-  color: color-mix(in srgb, var(--ctp-h3) 80%, var(--vscode-foreground));
-  text-align: center;
 }
 .markdown-body h4 {
+  --ctp-heading: var(--ctp-h4);
   font-size: 1.6em;
-  color: color-mix(in srgb, var(--ctp-h4) 80%, var(--vscode-foreground));
-  text-align: center;
 }
 .markdown-body h5 {
+  --ctp-heading: var(--ctp-h5);
   font-size: 1.4em;
-  color: color-mix(in srgb, var(--ctp-h5) 80%, var(--vscode-foreground));
-  text-align: center;
 }
 .markdown-body h6 {
+  --ctp-heading: var(--ctp-h6);
   font-size: 1.2em;
-  color: color-mix(in srgb, var(--ctp-h6) 80%, var(--vscode-foreground));
-  text-align: center;
 }
 
 /* 屏蔽 VS Code 内置的 .code-line 当前行/悬停标记（该特性体验较差） */
