@@ -75,6 +75,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "package": "pnpm run check-types && node esbuild.js --production",
+    "test": "pnpm run check-types && node scripts/run-tests.cjs",
     "vscode:prepublish": "pnpm run package"
   },
   "version": "0.0.7"

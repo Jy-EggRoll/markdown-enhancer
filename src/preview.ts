@@ -2,30 +2,14 @@
 // 作用：
 //  - 为预览中的每个代码块（pre > code）顶部挂载组合标题栏——左侧语言名（仅 ```lang 围栏时有），右侧复制按钮；
 //  - 将 GitHub 风格的特殊引用块（> [!NOTE] 等）转换为带类型色与图标的 callout。
+// 解析部分（语言名、callout 类型、标记剔除）在 previewParsing.ts，与 DOM 解耦以便单测。
 
-const LANGUAGE_RE = /(?:^|\s)language-([\w+-]+)/;
-
-// GitHub 5 种 alert 类型 → 官方 codicon 图标 + 英文标题（与 GitHub 原生一致）
-const CALLOUT_TYPES = {
-  note: { icon: "codicon-info", label: "Note" },
-  tip: { icon: "codicon-light-bulb", label: "Tip" },
-  important: { icon: "codicon-report", label: "Important" },
-  warning: { icon: "codicon-warning", label: "Warning" },
-  caution: { icon: "codicon-error", label: "Caution" },
-} as const;
-
-type CalloutType = keyof typeof CALLOUT_TYPES;
-
-// 类型清单由 CALLOUT_TYPES 派生，新增类型只需改上面一处
-const CALLOUT_RE = new RegExp(
-  `^\\s*\\[!(${Object.keys(CALLOUT_TYPES).join("|")})\\]`,
-  "i",
-);
-
-function isCalloutType(value: string): value is CalloutType {
-  // 用 hasOwn 而非 `in`，避免把原型链上的键（toString 等）当成合法类型
-  return Object.hasOwn(CALLOUT_TYPES, value);
-}
+import {
+  CALLOUT_TYPES,
+  calloutType,
+  codeLanguage,
+  stripCalloutMarker,
+} from "./previewParsing";
 
 function buildCopyButton(code: HTMLElement): HTMLButtonElement {
   const button = document.createElement("button");
@@ -68,11 +52,11 @@ function enhanceCodeBlock(pre: HTMLPreElement, code: HTMLElement): void {
   const header = document.createElement("div");
   header.className = "md-enhancer-header";
 
-  const langMatch = code.className.match(LANGUAGE_RE);
-  if (langMatch) {
+  const language = codeLanguage(code.className);
+  if (language) {
     const lang = document.createElement("span");
     lang.className = "md-enhancer-lang";
-    lang.textContent = langMatch[1];
+    lang.textContent = language;
     header.appendChild(lang);
   }
 
@@ -88,18 +72,14 @@ function enhanceCallouts(): void {
       continue;
     }
 
-    const match = (bq.textContent ?? "").match(CALLOUT_RE);
-    if (!match) {
-      continue;
-    }
-    const type = match[1].toLowerCase();
-    if (!isCalloutType(type)) {
+    const type = calloutType(bq.textContent ?? "");
+    if (!type) {
       continue;
     }
     const meta = CALLOUT_TYPES[type];
 
     // 剔除首行的 [!TYPE] 标记文本（保留其余内容）
-    stripCalloutMarker(bq);
+    removeCalloutMarkerFromDom(bq);
 
     bq.classList.add("md-enhancer-callout", `md-enhancer-callout-${type}`);
 
@@ -116,17 +96,14 @@ function enhanceCallouts(): void {
 }
 
 // 从 blockquote 文本节点中移除 [!TYPE] 标记；若标记独占一个空段落则一并删去，避免多余空行
-function stripCalloutMarker(bq: HTMLElement): void {
+function removeCalloutMarkerFromDom(bq: HTMLElement): void {
   const walker = document.createTreeWalker(bq, NodeFilter.SHOW_TEXT);
   let node: Node | null;
   while ((node = walker.nextNode())) {
     const textNode = node as Text;
-    const m = textNode.data.match(CALLOUT_RE);
-    if (m) {
-      const marker = m[0];
-      const idx = textNode.data.indexOf(marker);
-      const rest = textNode.data.slice(idx + marker.length).replace(/^\s+/, "");
-      textNode.data = textNode.data.slice(0, idx) + rest;
+    const stripped = stripCalloutMarker(textNode.data);
+    if (stripped !== textNode.data) {
+      textNode.data = stripped;
       const parent = textNode.parentElement;
       if (
         parent &&
