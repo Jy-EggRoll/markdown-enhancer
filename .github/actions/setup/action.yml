@@ -17,6 +17,14 @@ runs:
       shell: bash
       run: pnpm install --frozen-lockfile
 
+    - name: Run unit tests
+      shell: bash
+      run: pnpm test
+
+    - name: Check formatting
+      shell: bash
+      run: pnpm run format:check
+
     - name: Build extension
       shell: bash
       run: pnpm run package
