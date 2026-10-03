@@ -83,3 +83,11 @@
 .md-enhancer-header .md-enhancer-copy-button.copied {
   color: var(--vscode-charts-green, var(--vscode-button-secondaryForeground));
 }
+
+/* 复制失败（剪贴板不可用或被拒）：复用官方错误色，给出可见反馈而非静默无反应 */
+.md-enhancer-header .md-enhancer-copy-button.failed {
+  color: var(
+    --vscode-errorForeground,
+    var(--vscode-button-secondaryForeground)
+  );
+}

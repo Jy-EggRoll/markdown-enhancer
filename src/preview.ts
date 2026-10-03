@@ -11,6 +11,27 @@ import {
   stripCalloutMarker,
 } from "./previewParsing";
 
+// 复制结果（成功/失败）反馈状态的可见时长，统一在此调整
+const COPY_FEEDBACK_MS = 1000;
+
+// 复制兜底：选中代码后调用 execCommand('copy')。该 API 虽已废弃，但不受剪贴板权限模型约束，
+// 是 VS Code 内置预览在 clipboard 写入被拒时使用的降级路径，故沿用同一策略以提高成功率
+function legacyCopy(code: HTMLElement): boolean {
+  const selection = window.getSelection();
+  if (!selection) return false;
+  selection.removeAllRanges();
+  const range = document.createRange();
+  range.selectNodeContents(code);
+  selection.addRange(range);
+  try {
+    return document.execCommand("copy");
+  } catch {
+    return false;
+  } finally {
+    selection.removeAllRanges();
+  }
+}
+
 function buildCopyButton(code: HTMLElement): HTMLButtonElement {
   const button = document.createElement("button");
   button.className = "md-enhancer-copy-button";
@@ -20,24 +41,39 @@ function buildCopyButton(code: HTMLElement): HTMLButtonElement {
   icon.className = "codicon codicon-copy";
   button.appendChild(icon);
 
-  let copying = false;
+  let busy = false;
+
+  // 复制结果反馈：图标与按钮状态短暂切换后复原；成功与失败共用同一段收尾逻辑
+  const flash = (stateClass: string, iconClass: string): void => {
+    icon.className = `codicon ${iconClass}`;
+    button.classList.add(stateClass);
+    window.setTimeout(() => {
+      icon.className = "codicon codicon-copy";
+      button.classList.remove(stateClass);
+      busy = false;
+    }, COPY_FEEDBACK_MS);
+  };
+
+  const succeed = (): void => flash("copied", "codicon-check");
+  const fail = (): void => flash("failed", "codicon-error");
+
   button.addEventListener("click", () => {
-    if (copying) return;
-    copying = true;
+    if (busy) return;
+    busy = true;
+
+    // 剪贴板 API 可能整体缺失（webview 权限被拒 / 非安全上下文）。此时访问 writeText
+    // 会同步抛错，Promise 链上的 catch 捕不到，busy 会永久卡在 true 导致此后点击全失效；
+    // 故先显式探测，缺失时直接走兜底
+    if (!navigator.clipboard?.writeText) {
+      legacyCopy(code) ? succeed() : fail();
+      return;
+    }
+
     navigator.clipboard
       .writeText(code.textContent ?? "")
-      .then(() => {
-        icon.className = "codicon codicon-check";
-        button.classList.add("copied");
-        window.setTimeout(() => {
-          icon.className = "codicon codicon-copy";
-          button.classList.remove("copied");
-          copying = false;
-        }, 1000);
-      })
-      .catch(() => {
-        copying = false;
-      });
+      .then(succeed)
+      // 写入被拒时退回 execCommand 兜底（与 VS Code 内置预览同策略）；两条路径都失败才报错
+      .catch(() => (legacyCopy(code) ? succeed() : fail()));
   });
 
   return button;
