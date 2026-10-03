@@ -91,3 +91,16 @@
     var(--vscode-button-secondaryForeground)
   );
 }
+
+/* 隐藏 VS Code 内置的代码块复制按钮（悬停显示在预览代码块的右上角）。
+   它与本扩展顶栏的常驻复制按钮职责重复，且几何位置重叠（内置按钮定位在
+   top/right 8px、28×28px，而顶栏占 0–28px）。两条选择器各管一种失效场景：
+   - pre > button：内置按钮是 pre 的直接子元素，用结构定位可在其改类名时依然生效；
+     本扩展的按钮位于 .md-enhancer-header 内部，不是 pre 的直接子元素，不会被误伤；
+   - .code-block-copy-button：内置若改为挂到包装元素下，仍能被命中。
+   !important 是为了拿到确定性——内置规则在 :hover 下也会设置 opacity，
+   仅靠层叠顺序（贡献样式确实加载在内置样式之后）不够稳。 */
+.markdown-body pre > button,
+.markdown-body .code-block-copy-button {
+  display: none !important;
+}
