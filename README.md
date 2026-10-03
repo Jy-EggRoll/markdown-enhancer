@@ -21,6 +21,8 @@ pnpm test              # tsc 类型检查 + 运行单元测试（node:test）
 pnpm run package       # 生产构建（esbuild --production 压缩），用于本地打 .vsix
 pnpm format            # prettier 格式化全仓
 pnpm run format:check  # prettier 校验格式（CI 门禁，不修改文件）
+pnpm run l10n:check    # 规范化 package.nls*.json 键序，并与已提交内容比对（CI 门禁）
+pnpm run l10n:parity   # 校验跨语言键集合一致、manifest 引用闭合（CI 门禁）
 ```
 
 按 `F5` 启动扩展宿主，打开任意 `.md` 文件预览，即可看到每个代码块顶部的标题栏：左侧为语言名（仅 `lang` 围栏时显示），右侧为常驻的复制按钮。

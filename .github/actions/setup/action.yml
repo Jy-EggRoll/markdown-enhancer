@@ -25,6 +25,14 @@ runs:
       shell: bash
       run: pnpm run format:check
 
+    - name: Verify l10n files are normalized
+      shell: bash
+      run: pnpm run l10n:check
+
+    - name: Verify l10n locales are aligned
+      shell: bash
+      run: pnpm run l10n:parity
+
     - name: Build extension
       shell: bash
       run: pnpm run package
