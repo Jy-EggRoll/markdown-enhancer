@@ -82,5 +82,5 @@
     "test": "pnpm run check-types && node scripts/run-tests.cjs",
     "vscode:prepublish": "pnpm run package"
   },
-  "version": "0.0.7"
+  "version": "0.0.8"
 }

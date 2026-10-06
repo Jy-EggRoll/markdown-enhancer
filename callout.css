@@ -5,8 +5,10 @@
 .md-enhancer-callout {
   /* 默认类型色；每种类型在文件末尾覆盖 --md-callout-color */
   --md-callout-color: var(--ctp-blue);
-  /* 左边框与淡底均取自类型色 */
-  border-left: 4px solid var(--md-callout-color);
+  /* 只留类型色的淡底，不加左侧彩条。
+     必须显式关掉左边框：VS Code 内置的 blockquote 规则带 5px currentColor 左边框，
+     本类若只是不写 border-left，内置那条会直接漏出来，变成一根正文色的竖条 */
+  border-left: none;
   background: color-mix(in srgb, var(--md-callout-color) 10%, transparent);
   border-radius: var(--md-radius);
   padding: 12px 16px;

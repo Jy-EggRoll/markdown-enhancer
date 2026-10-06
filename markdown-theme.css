@@ -3,7 +3,9 @@
    跨文件共享的 token 只在此处声明，其余 CSS 只消费、不回退：
    - --ctp-*      调色板（暗色 Frappe 为默认值，亮色由 Latte 覆盖）
    - --md-radius  代码块与 callout 共用的圆角
-   组件私有的 --md-* token 声明在使用它的组件文件里（见 code-block.css）。 */
+   组件私有的 --md-* token 声明在使用它的组件文件里（见 code-block.css）。
+   本扩展的样式表加载在 VS Code 内置样式之后，同优先级即可覆盖，因此全仓不使用 !important，
+   新增规则前先确认加载顺序，确实需要压过内置样式时再单独讨论。 */
 .markdown-body {
   /* 暗色默认（Frappe） */
   --ctp-rosewater: #f2d5cf;
