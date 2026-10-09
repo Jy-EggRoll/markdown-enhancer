@@ -1,0 +1,81 @@
+/* 代码语法高亮：覆盖 VS Code 内置 highlight.css 的硬编码配色，
+   改用随主题变化的工作台颜色（terminal.ansi* 等），让预览高亮尊重当前主题。
+   内置规则只分深/浅两套死值、不认具体主题；本文件加载在其后，且带 .markdown-body
+   前缀、特异性更高，直接覆盖即可，无需 !important。
+   映射是“主题色板近似”，不等于编辑器里真实的 token 色（webview 拿不到 token colors）。 */
+
+.markdown-body .hljs-comment,
+.markdown-body .hljs-quote {
+  color: var(--vscode-terminal-ansiBrightBlack);
+  font-style: italic;
+}
+
+.markdown-body .hljs-keyword,
+.markdown-body .hljs-literal,
+.markdown-body .hljs-symbol,
+.markdown-body .hljs-name {
+  color: var(--vscode-terminal-ansiMagenta);
+}
+
+.markdown-body .hljs-string,
+.markdown-body .hljs-meta-string {
+  color: var(--vscode-terminal-ansiGreen);
+}
+
+.markdown-body .hljs-number,
+.markdown-body .hljs-class {
+  color: var(--vscode-terminal-ansiYellow);
+}
+
+.markdown-body .hljs-built_in,
+.markdown-body .hljs-type,
+.markdown-body .hljs-builtin-name {
+  color: var(--vscode-terminal-ansiCyan);
+}
+
+.markdown-body .hljs-function,
+.markdown-body .hljs-title {
+  color: var(--vscode-terminal-ansiBlue);
+}
+
+.markdown-body .hljs-subst,
+.markdown-body .hljs-params,
+.markdown-body .hljs-formula {
+  color: inherit;
+}
+
+.markdown-body .hljs-variable,
+.markdown-body .hljs-template-variable {
+  color: var(--vscode-terminal-ansiRed);
+}
+
+.markdown-body .hljs-attr,
+.markdown-body .hljs-attribute {
+  color: var(--vscode-terminal-ansiCyan);
+}
+
+.markdown-body .hljs-regexp,
+.markdown-body .hljs-template-tag {
+  color: var(--vscode-terminal-ansiYellow);
+}
+
+.markdown-body .hljs-tag,
+.markdown-body .hljs-meta,
+.markdown-body .hljs-meta-keyword {
+  color: var(--vscode-terminal-ansiBrightBlack);
+}
+
+.markdown-body .hljs-section,
+.markdown-body .hljs-bullet,
+.markdown-body .hljs-selector-tag,
+.markdown-body .hljs-selector-id,
+.markdown-body .hljs-selector-class,
+.markdown-body .hljs-selector-attr,
+.markdown-body .hljs-selector-pseudo,
+.markdown-body .hljs-doctag {
+  color: var(--vscode-terminal-ansiYellow);
+}
+
+.markdown-body .hljs-link {
+  color: var(--vscode-terminal-ansiBlue);
+}

@@ -17,7 +17,8 @@
       "./markdown-theme.css",
       "./code-block.css",
       "./callout.css",
-      "./table.css"
+      "./table.css",
+      "./code-highlight.css"
     ],
     "commands": [
       {
