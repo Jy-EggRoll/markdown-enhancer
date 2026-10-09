@@ -18,7 +18,8 @@
       "./code-block.css",
       "./callout.css",
       "./table.css",
-      "./code-highlight.css"
+      "./code-highlight.css",
+      "./code-inline.css"
     ],
     "commands": [
       {
