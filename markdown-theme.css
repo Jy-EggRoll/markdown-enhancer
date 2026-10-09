@@ -69,6 +69,13 @@
   text-align: center;
 }
 
+/* 去掉 VS Code 内置给 h1/h2 加的下划线细线。内置规则在 markdown.css，
+   本文件加载在其后且带 .markdown-body 前缀、特异性更高，直接覆盖即可，无需 !important */
+.markdown-body h1,
+.markdown-body h2 {
+  border-bottom: none;
+}
+
 /* 每级标题只声明自己的标题色与字号 */
 .markdown-body h1 {
   --ctp-heading: var(--ctp-h1);
