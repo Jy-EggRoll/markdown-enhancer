@@ -1,0 +1,37 @@
+/* 表格：整体居中、圆角外框、斑马纹。
+   内置 markdown.css 的 table 规则先加载，本文件随后覆盖，与全仓约定一致不使用 !important。
+   跨文件共享的 token（--md-radius）在 markdown-theme.css 声明，此处只消费、不回退。 */
+
+.markdown-body table {
+  /* 内置是 border-collapse: collapse，该模式下 border-radius 对外框不生效，
+     故改为 separate 并把间距清零，才能用独立边框画出带圆角的外框；
+     border-spacing: 0 同时保证内置的行分隔线（table > tbody > tr + tr > td）连续不断 */
+  border-collapse: separate;
+  border-spacing: 0;
+  /* 表格宽度由内容决定，左右 auto 外边距实现整体居中；内置的 margin-bottom 保留 */
+  margin-inline: auto;
+  border: 1px solid var(--vscode-widget-border, transparent);
+  border-radius: var(--md-radius);
+  /* 裁掉单元格背景伸出圆角的部分，否则四角会盖住圆角 */
+  overflow: hidden;
+}
+
+/* 表头与斑马纹的底色都取自「前景色混入编辑区背景色」得到的实色：
+   不用 transparent 叠加，强度不随下层背景漂移，也便于按需调深。
+   --vscode-editor-background 是主题基础色，VS Code 必然注入，故不设回退。 */
+
+.markdown-body th {
+  background: color-mix(
+    in srgb,
+    var(--vscode-foreground) 12%,
+    var(--vscode-editor-background)
+  );
+}
+
+.markdown-body table > tbody > tr:nth-child(even) > td {
+  background: color-mix(
+    in srgb,
+    var(--vscode-foreground) 8%,
+    var(--vscode-editor-background)
+  );
+}

@@ -16,7 +16,8 @@
       "./dist/media/codicon.css",
       "./markdown-theme.css",
       "./code-block.css",
-      "./callout.css"
+      "./callout.css",
+      "./table.css"
     ],
     "commands": [
       {
