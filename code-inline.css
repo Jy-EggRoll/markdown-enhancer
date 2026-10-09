@@ -1,16 +1,14 @@
-/* 行内代码：缩小字号、着色、统一圆角。
+/* 行内代码：缩小字号、统一圆角、增大内边距。
    来源与覆盖依据：
    - 字号 `font-size: 1em` 来自内置 markdown.css，本文件加载在其后，直接覆盖。
    - 等宽字体、前景/背景色、`padding` 与 4px 圆角来自 webview 基础样式
      （src/vs/workbench/contrib/webview/browser/pre/index.html 的 @layer vscode-default）。
      未分层的样式在层叠层规则之上，故无需更高特异性即可覆盖，也未使用 !important。
-   字号取正文的 90%，避免等宽字体在同号下显得偏大；圆角改用共享 token --md-radius。 */
+   字号取正文的 90%，避免等宽字体在同号下显得偏大；圆角改用共享 token --md-radius。
+   颜色不另行指定，沿用 webview 基础的 textPreformat-foreground。 */
 
 .markdown-body :not(pre) > code {
   font-size: 0.9em;
-  color: var(--ctp-peach);
   background-color: var(--vscode-textPreformat-background);
   border-radius: var(--md-radius);
-  /* 覆盖 webview 基础的 1px 3px，让文字与圆角两端留出间距 */
-  padding: 2px 6px;
 }
